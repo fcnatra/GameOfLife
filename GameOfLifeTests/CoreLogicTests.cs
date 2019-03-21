@@ -10,6 +10,15 @@ namespace GameOfLifeTests
     [TestClass]
     public class CoreLogicTests
     {
+        GameOfLifeCoreLogic gameOfLife;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            gameOfLife = new GameOfLifeCoreLogic();
+            gameOfLife.InitializeBoard(4, 8);
+        }
+
         [TestMethod]
         public void ADead_ECellWith_F_H_ICellsAliveBecomesAlive()
         {
@@ -19,8 +28,6 @@ namespace GameOfLifeTests
              ...**...
              ........
              */
-            var gameOfLife = new GameOfLifeCoreLogic();
-            gameOfLife.InitializeBoard(4, 8);
             gameOfLife.SetLivingCells(new List<Point>
                     {
                         new Point(1, 4),
@@ -43,8 +50,6 @@ namespace GameOfLifeTests
              ...**...
              ........
              */
-            var gameOfLife = new GameOfLifeCoreLogic();
-            gameOfLife.InitializeBoard(4, 8);
             gameOfLife.SetLivingCells(new List<Point>
                     {
                         new Point(0, 5),
@@ -68,8 +73,6 @@ namespace GameOfLifeTests
              ...**...
              ........
              */
-            var gameOfLife = new GameOfLifeCoreLogic();
-            gameOfLife.InitializeBoard(4, 8);
             gameOfLife.SetLivingCells(new List<Point>
                     {
                         new Point(0, 5),
@@ -93,8 +96,6 @@ namespace GameOfLifeTests
              ...**...
              ........
              */
-            var gameOfLife = new GameOfLifeCoreLogic();
-            gameOfLife.InitializeBoard(4, 8);
             gameOfLife.SetLivingCells(new List<Point>
                     {
                         new Point(1, 3), new Point(1, 4),
@@ -108,23 +109,21 @@ namespace GameOfLifeTests
             Assert.IsTrue(eCellIsDead);
         }
 
-
         [TestMethod]
-        public void SetRowsWithOnlyFirstCellAliveReturnsCorrectPattern()
+        public void SetRowsWithOnlyTwoCellsAliveReturnsCorrectPattern()
         {
             /*
              *.......
-             ........
+             .*......
              ........
              ........
              */
-            var gameOfLife = new GameOfLifeCoreLogic();
-            gameOfLife.InitializeBoard(4, 8);
-            gameOfLife.SetRows(new List<string>() { "*" });
+            gameOfLife.SetRows(new List<string>() { "*", ".*" });
 
-            bool firstCellIsAlive = gameOfLife.IsAlive(0,0);
+            bool firstCellIsAlive = gameOfLife.IsAlive(0, 0);
+            bool secondRowSecondColumnIsAlive = gameOfLife.IsAlive(1, 1);
 
-            Assert.IsTrue(firstCellIsAlive);
+            Assert.IsTrue(firstCellIsAlive && secondRowSecondColumnIsAlive);
         }
     }
 }

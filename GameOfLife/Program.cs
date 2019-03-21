@@ -9,9 +9,9 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-            List<string> boardPattern = BoardFactory.PatterbBoard(GameOfLifePatterns.OscilatorBlinker);
+            List<string> board = BoardFactory.BoardPattern(GameOfLifePatterns.CellularAutomationGosperGliderGun);
 
-            GameOfLifeCoreLogic gameOfLife = InitializeGame(boardPattern);
+            GameOfLifeCoreLogic gameOfLife = InitializeGame(board);
 
             IGameOfLifeUI gameUi = new GameOfLifeConsoleUI();
             gameUi.RunLife(gameOfLife);

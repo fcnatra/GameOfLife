@@ -38,10 +38,8 @@ namespace GameOfLife
             int livingNeighbours = GetLivingNeighbours(row, column);
 
             char nextGeneration = Board[row][column];
-            if (IsDead(row, column))
-            {
-                if (livingNeighbours == 3) nextGeneration = ALIVE_CELLCHAR;
-            }
+            if (IsDead(row, column) && livingNeighbours == 3)
+                nextGeneration = ALIVE_CELLCHAR;
             else if (livingNeighbours < 2 || livingNeighbours > 3)
                 nextGeneration = DEAD_CELLCHAR;
 
@@ -92,15 +90,19 @@ namespace GameOfLife
         {
             for (int row = 0; row < rows.Count; row++)
                 for (int column = 0; column < rows[row].Length; column++)
-                {
                     this.Board[row][column] = rows[row][column];
-                }
         }
 
         public bool IsAlive(int row, int column)
         {
-            if (CellIsBeyondLimits(row, column)) return false;
-            return this.Board[row][column] == ALIVE_CELLCHAR;
+            return CellIsInsideLimits(row, column)
+                && this.Board[row][column] == ALIVE_CELLCHAR;
+        }
+
+        public bool IsDead(int row, int column)
+        {
+            return CellIsBeyondLimits(row, column) 
+                || this.Board[row][column] == DEAD_CELLCHAR;
         }
 
         private bool CellIsBeyondLimits(int row, int column)
@@ -109,9 +111,9 @@ namespace GameOfLife
                 || column < 0 || column >= Columns;
         }
 
-        public bool IsDead(int row, int column)
+        private bool CellIsInsideLimits(int row, int column)
         {
-            return this.Board[row][column] == DEAD_CELLCHAR;
+            return !CellIsBeyondLimits(row, column);
         }
     }
 }
