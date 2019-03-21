@@ -44,7 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BoardFactory.cs" />
+    <Compile Include="GameOfLifeConsoleUI.cs" />
     <Compile Include="GameOfLifeCoreLogic.cs" />
+    <Compile Include="IGameOfLifeUI.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
