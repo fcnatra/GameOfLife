@@ -9,7 +9,7 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-            List<string> board = BoardFactory.BoardPattern(GameOfLifePatterns.CellularAutomationGosperGliderGun);
+            List<string> board = BoardFactory.BuildBoard(GameOfLifePatterns.CellularAutomationGosperGliderGun);
 
             GameOfLifeCoreLogic gameOfLife = InitializeGame(board);
 

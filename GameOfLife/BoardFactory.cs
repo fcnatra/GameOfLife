@@ -19,7 +19,7 @@ namespace GameOfLife
             CellularAutomationGosperGliderGun
         }
 
-        public static List<String> BoardPattern(GameOfLifePatterns pattern)
+        public static List<String> BuildBoard(GameOfLifePatterns pattern)
         {
             // https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
             List<String> resultPattern = null;
