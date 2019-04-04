@@ -1,30 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Threading;
+using GameOfLifeGameLogic;
 
 namespace GameOfLife
 {
     public class GameOfLifeConsoleUI : IGameOfLifeUI
     {
-        public void RunLife(GameOfLifeCoreLogic gameOfLife)
-        {
-            do
-            {
-                SetTitle(gameOfLife.GenerationNumber);
-                DrawBoard(gameOfLife.Board);
-                Thread.Sleep(100);
-                gameOfLife.NextGeneration();
-            } while (!Console.KeyAvailable);
-        }
-
-        private void SetTitle(long generationNumber)
+        public void SetGenerationNumber(long generationNumber)
         {
             Console.SetCursorPosition(1, 1);
             Console.Write($"Generation number: {generationNumber}");
         }
 
-        private void DrawBoard(StringBuilder[] board)
+        public void DrawBoard(StringBuilder[] board)
         {
             var rows = board.Length;
             var columns = board[0].Length;
@@ -38,6 +26,11 @@ namespace GameOfLife
                     Console.SetCursorPosition(column + columnOffset, row + rowOffset);
                     Console.Write(board[row][column]);
                 }
+        }
+
+        public void Dispose()
+        {
+            Console.Clear();
         }
     }
 }

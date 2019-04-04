@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using static GameOfLife.BoardFactory;
 
 namespace GameOfLife
@@ -9,29 +8,23 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-            List<string> board = BoardFactory.BuildBoard(GameOfLifePatterns.CellularAutomationGosperGliderGun);
+            List<string> boardPattern = BoardFactory.BuildBoard(GameOfLifePatterns.CellularAutomationGosperGliderGun);
 
-            GameOfLifeCoreLogic gameOfLife = InitializeGame(board);
+            GameOfLifeGameLogic.Game game = new GameOfLifeGameLogic.Game();
+            game.BoardPainter = new GameOfLifeWinformsUI();
+            game.InitializeGame(boardPattern);
+            game.Play();
 
-            IGameOfLifeUI gameUi = new GameOfLifeConsoleUI();
-            gameUi.RunLife(gameOfLife);
-
-            PressEnterToExit();
+            PressAKeyToExit(game);
         }
 
-        private static GameOfLifeCoreLogic InitializeGame(List<string> pattern)
-        {
-            var gameOfLife = new GameOfLifeCoreLogic();
-            gameOfLife.InitializeBoard(pattern.Count + 15, pattern.Max(x => x.Length) + 20);
-            gameOfLife.SetRows(pattern);
-            return gameOfLife;
-        }
-
-        private static void PressEnterToExit()
+        private static void PressAKeyToExit(GameOfLifeGameLogic.Game game)
         {
             Console.WriteLine();
-            Console.WriteLine("END.\r\nPress enter to exit...");
-            Console.ReadLine();
+            Console.WriteLine("END.\r\nPress a key to exit...");
+            do {/*System.Threading.Thread.SpinWait(10);*/} while (!Console.KeyAvailable);
+
+            game.Stop();
         }
 
 

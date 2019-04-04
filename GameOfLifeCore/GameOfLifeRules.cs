@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
-namespace GameOfLife
+namespace GameOfLifeGameLogic
 {
-    public class GameOfLifeCoreLogic
+    public class GameOfLifeRules
     {
         public const char DEAD_CELLCHAR = '.';
         public const char ALIVE_CELLCHAR = '*';

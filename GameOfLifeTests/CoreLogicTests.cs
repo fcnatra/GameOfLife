@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
-using GameOfLife;
+using GameOfLifeGameLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GameOfLifeTests
@@ -10,12 +8,12 @@ namespace GameOfLifeTests
     [TestClass]
     public class CoreLogicTests
     {
-        GameOfLifeCoreLogic gameOfLife;
+        GameOfLifeRules gameOfLife;
 
         [TestInitialize]
         public void Initialize()
         {
-            gameOfLife = new GameOfLifeCoreLogic();
+            gameOfLife = new GameOfLifeRules();
             gameOfLife.InitializeBoard(4, 8);
         }
 
