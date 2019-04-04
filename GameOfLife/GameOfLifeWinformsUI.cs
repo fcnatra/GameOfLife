@@ -16,6 +16,7 @@ namespace GameOfLife
                 return _formBoard;
             }
         }
+        public int PointSize { get; set; }
 
         public GameOfLifeWinformsUI()
         {
@@ -23,58 +24,61 @@ namespace GameOfLife
 
         private void InitializeForm()
         {
-            _formBoard = new Form();
-            _formBoard.ControlBox = false;
-            _formBoard.ShowInTaskbar = false;
-            _formBoard.FormClosing += _formBoard_FormClosing;
-            _formBoard.StartPosition = FormStartPosition.CenterScreen;
+            _formBoard = new Form
+            {
+                ControlBox = false,
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                ShowInTaskbar = false,
+                StartPosition = FormStartPosition.CenterScreen,
+                BackColor = Color.Black
+            };
+            _formBoard.FormClosing += OnFormClosing;
             _formBoard.Show();
 
             _brushes = new Dictionary<char, Brush>
             {
                 {'.',  new Pen(_formBoard.BackColor).Brush},
-                {'*',  Pens.Black.Brush }
+                {'*',  Pens.White.Brush }
             };
         }
 
-        private void _formBoard_FormClosing(object sender, FormClosingEventArgs e)
+        private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             _formBoard.Close();
         }
 
         public void SetGenerationNumber(long generationNumber)
         {
-            //Console.SetCursorPosition(1, 1);
-            //Console.Write($"Generation number: {generationNumber}");
+            //FormBoard.Tag = $"Generation {generationNumber}";
         }
 
         private delegate void DrawBoardSafeCall(StringBuilder[] board);
 
         public void DrawBoard(StringBuilder[] board)
         {
-            if (FormBoard.InvokeRequired)
-            {
-                var drawDelegate = new DrawBoardSafeCall(DrawBoard);
-                FormBoard.Invoke(drawDelegate, board);
-            }
-            else
-            {
-                var rows = board.Length;
-                var columns = board[0].Length;
+            var rows = board.Length;
+            var columns = board[0].Length;
 
-                var rowOffset = 5;
-                var columnOffset = 5;
+            FormBoard.Size = new Size(TransformCoord(rows, columns));
+            FormBoard.Width += PointSize;
+            FormBoard.Height += PointSize;
 
-                FormBoard.Height = rows;
-                FormBoard.Width = columns;
-                var graphics = FormBoard.CreateGraphics();
+            var graphics = FormBoard.CreateGraphics();
 
-                for (int row = 0; row < rows; row++)
-                    for (int column = 0; column < columns; column++)
-                        graphics.FillRectangle(_brushes[board[row][column]], column + columnOffset, row + rowOffset, 1, 1);
+            for (int row = 0; row < rows; row++)
+                for (int column = 0; column < columns; column++)
+                {
+                    var transformation = TransformCoord(row, column);
+                    graphics.FillRectangle(_brushes[board[row][column]], transformation.X, transformation.Y, PointSize, PointSize);
+                }
+        }
 
-                Application.DoEvents();
-            }
+        private Point TransformCoord(int row, int col)
+        {
+            var rowstransformed = row * PointSize;
+            var colsTransformed = col * PointSize;
+
+            return new Point(colsTransformed, rowstransformed);
         }
 
         public void Dispose()

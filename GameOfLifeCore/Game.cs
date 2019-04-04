@@ -11,7 +11,7 @@ namespace GameOfLifeGameLogic
         private CancellationTokenSource _cancellationToken;
 
         public IGameOfLifeUI BoardPainter { get; set; }
-        public long GenerationNumber { get; set; }
+        public long GenerationNumber { get; private set; }
 
         public void InitializeGame(List<string> boardPattern)
         {
@@ -48,6 +48,7 @@ namespace GameOfLifeGameLogic
                 BoardPainter.DrawBoard(_gameRules.Board);
                 Thread.SpinWait(200);
                 _gameRules.NextGeneration();
+                GenerationNumber++;
 
             } while (!_cancellationToken.IsCancellationRequested);
 

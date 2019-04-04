@@ -8,23 +8,33 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-            List<string> boardPattern = BoardFactory.BuildBoard(GameOfLifePatterns.CellularAutomationGosperGliderGun);
+            var game = new GameOfLifeGameLogic.Game();
 
-            GameOfLifeGameLogic.Game game = new GameOfLifeGameLogic.Game();
-            game.BoardPainter = new GameOfLifeWinformsUI();
-            game.InitializeGame(boardPattern);
+            SetupUI(game);
+            SetUpBoard(game);
             game.Play();
 
-            PressAKeyToExit(game);
+            PressEnterToExit(game);
+            game.Stop();
         }
 
-        private static void PressAKeyToExit(GameOfLifeGameLogic.Game game)
+        private static void SetUpBoard(GameOfLifeGameLogic.Game game)
+        {
+            List<string> boardPattern = BoardFactory.BuildBoard(GameOfLifePatterns.CellularAutomationGosperGliderGun);
+            game.InitializeGame(boardPattern);
+        }
+
+        private static void SetupUI(GameOfLifeGameLogic.Game game)
+        {
+            //game.BoardPainter = new GameOfLifeConsoleUI();
+            game.BoardPainter = new GameOfLifeWinformsUI { PointSize = 5 };
+        }
+
+        private static void PressEnterToExit(GameOfLifeGameLogic.Game game)
         {
             Console.WriteLine();
-            Console.WriteLine("END.\r\nPress a key to exit...");
-            do {/*System.Threading.Thread.SpinWait(10);*/} while (!Console.KeyAvailable);
-
-            game.Stop();
+            Console.WriteLine("Press [ENTER] to exit...");
+            Console.ReadLine();
         }
 
 
