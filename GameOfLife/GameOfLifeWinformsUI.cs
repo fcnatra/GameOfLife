@@ -12,7 +12,7 @@ namespace GameOfLife
         private Form _formBoard;
         private Form FormBoard { get
             {
-                if (_formBoard == null) InitializeForm();
+                if (_formBoard == null) InitializeFormField();
                 return _formBoard;
             }
         }
@@ -22,9 +22,25 @@ namespace GameOfLife
         {
         }
 
-        private void InitializeForm()
+        private void InitializeFormField()
         {
-            _formBoard = new Form
+            _formBoard = BuildForm();
+            _formBoard.Show();
+            SetUpBrushesToPaintThePoints();
+        }
+
+        private void SetUpBrushesToPaintThePoints()
+        {
+            _brushes = new Dictionary<char, Brush>
+            {
+                {'.',  new Pen(_formBoard.BackColor).Brush},
+                {'*',  Pens.White.Brush }
+            };
+        }
+
+        private Form BuildForm()
+        {
+            var form = new Form
             {
                 ControlBox = false,
                 FormBorderStyle = FormBorderStyle.FixedSingle,
@@ -32,14 +48,9 @@ namespace GameOfLife
                 StartPosition = FormStartPosition.CenterScreen,
                 BackColor = Color.Black
             };
-            _formBoard.FormClosing += OnFormClosing;
-            _formBoard.Show();
+            form.FormClosing += OnFormClosing;
 
-            _brushes = new Dictionary<char, Brush>
-            {
-                {'.',  new Pen(_formBoard.BackColor).Brush},
-                {'*',  Pens.White.Brush }
-            };
+            return form;
         }
 
         private void OnFormClosing(object sender, FormClosingEventArgs e)
@@ -59,9 +70,7 @@ namespace GameOfLife
             var rows = board.Length;
             var columns = board[0].Length;
 
-            FormBoard.Size = new Size(TransformCoord(rows, columns));
-            FormBoard.Width += PointSize;
-            FormBoard.Height += PointSize;
+            ChangeBoardSize(rows, columns);
 
             var graphics = FormBoard.CreateGraphics();
 
@@ -71,6 +80,13 @@ namespace GameOfLife
                     var transformation = TransformCoord(row, column);
                     graphics.FillRectangle(_brushes[board[row][column]], transformation.X, transformation.Y, PointSize, PointSize);
                 }
+        }
+
+        private void ChangeBoardSize(int rows, int columns)
+        {
+            FormBoard.Size = new Size(TransformCoord(rows, columns));
+            FormBoard.Width += PointSize;
+            FormBoard.Height += PointSize;
         }
 
         private Point TransformCoord(int row, int col)
