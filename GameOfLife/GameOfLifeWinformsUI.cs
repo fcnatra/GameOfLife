@@ -24,6 +24,11 @@ namespace GameOfLife
         {
         }
 
+        public void GenerationHasChanged(long generationNumber, StringBuilder[] board)
+        {
+            DrawBoard(board);
+        }
+
         private void InitializeFormField()
         {
             _formBoard = BuildForm();
@@ -60,12 +65,7 @@ namespace GameOfLife
             _formBoard.Close();
         }
 
-        public void GenerationHasChanged(long generationNumber)
-        {
-            //FormBoard.Tag = $"Generation {generationNumber}";
-        }
-
-        public void DrawBoard(StringBuilder[] board)
+        private void DrawBoard(StringBuilder[] board)
         {
             var rows = board.Length;
             var columns = board[0].Length;

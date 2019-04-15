@@ -1,18 +1,32 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using GameOfLifeGameLogic;
 
 namespace GameOfLife
 {
     public class GameOfLifeConsoleUI : IGameOfLifeUI
     {
-        public void GenerationHasChanged(long generationNumber)
+        public void GenerationHasChanged(long iterationNumber, StringBuilder[] board)
+        {
+            new Thread(new ThreadStart(() =>
+            {
+                lock (this)
+                {
+                    DrawGenerationNumber(iterationNumber);
+                    DrawBoard(board);
+                }
+            }))
+            .Start();
+        }
+
+        private void DrawGenerationNumber(long generationNumber)
         {
             Console.SetCursorPosition(1, 1);
             Console.Write($"Generation number: {generationNumber}");
         }
 
-        public void DrawBoard(StringBuilder[] board)
+        private void DrawBoard(StringBuilder[] board)
         {
             var rows = board.Length;
             var columns = board[0].Length;

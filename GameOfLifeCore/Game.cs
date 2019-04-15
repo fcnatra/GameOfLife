@@ -61,8 +61,7 @@ namespace GameOfLifeGameLogic
 
         private void TellBoardPainterThereIsANewGeneration()
         {
-            BoardPainter.GenerationHasChanged(GenerationNumber);
-            BoardPainter.DrawBoard(_gameRules.Board);
+            BoardPainter.GenerationHasChanged(GenerationNumber, _gameRules.Board);
         }
     }
 }

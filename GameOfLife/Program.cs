@@ -21,7 +21,7 @@ namespace GameOfLife
 
         private static void SetUpGame(GameOfLifeGameLogic.Game game)
         {
-            game.DelayBetweenGenerationsInMs = 10;
+            game.DelayBetweenGenerationsInMs = 80;
         }
 
         private static void SetUpBoard(GameOfLifeGameLogic.Game game)
