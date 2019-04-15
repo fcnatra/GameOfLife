@@ -6,7 +6,7 @@ namespace GameOfLife
 {
     public class GameOfLifeConsoleUI : IGameOfLifeUI
     {
-        public void SetGenerationNumber(long generationNumber)
+        public void GenerationHasChanged(long generationNumber)
         {
             Console.SetCursorPosition(1, 1);
             Console.Write($"Generation number: {generationNumber}");

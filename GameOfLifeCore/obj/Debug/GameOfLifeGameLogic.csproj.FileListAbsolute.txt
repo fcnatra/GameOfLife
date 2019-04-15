@@ -1,6 +1,0 @@
-C:\Users\Frank.Torres\Documents\Proof of Concepts\GameOfLife\GameOfLifeCore\bin\Debug\GameOfLifeCore.dll
-C:\Users\Frank.Torres\Documents\Proof of Concepts\GameOfLife\GameOfLifeCore\bin\Debug\GameOfLifeCore.pdb
-C:\Users\Frank.Torres\Documents\Proof of Concepts\GameOfLife\GameOfLifeCore\obj\Debug\GameOfLifeGameLogic.csproj.CoreCompileInputs.cache
-C:\Users\Frank.Torres\Documents\Proof of Concepts\GameOfLife\GameOfLifeCore\obj\Debug\GameOfLifeCore.dll
-C:\Users\Frank.Torres\Documents\Proof of Concepts\GameOfLife\GameOfLifeCore\obj\Debug\GameOfLifeCore.pdb
-C:\Users\Frank.Torres\Documents\Proof of Concepts\GameOfLife\GameOfLifeCore\obj\Debug\GameOfLifeGameLogic.csprojAssemblyReference.cache

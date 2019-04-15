@@ -11,7 +11,10 @@ namespace GameOfLifeGameLogic
         private CancellationTokenSource _cancellationToken;
 
         public IGameOfLifeUI BoardPainter { get; set; }
+
         public long GenerationNumber { get; private set; }
+
+        public int DelayBetweenGenerationsInMs { get; set; } = 200;
 
         public void InitializeGame(List<string> boardPattern)
         {
@@ -42,19 +45,24 @@ namespace GameOfLifeGameLogic
 
         private void AsyncPlayGame(object cancellationToken)
         {
+            TellBoardPainterThereIsANewGeneration();
             do
             {
-                BoardPainter.SetGenerationNumber(GenerationNumber);
-                BoardPainter.DrawBoard(_gameRules.Board);
-                Thread.SpinWait(200);
+                Thread.Sleep(DelayBetweenGenerationsInMs);
                 _gameRules.NextGeneration();
                 GenerationNumber++;
-
+                TellBoardPainterThereIsANewGeneration();
             } while (!_cancellationToken.IsCancellationRequested);
 
             _cancellationToken.Dispose();
             _cancellationToken = null;
             BoardPainter.Dispose();
+        }
+
+        private void TellBoardPainterThereIsANewGeneration()
+        {
+            BoardPainter.GenerationHasChanged(GenerationNumber);
+            BoardPainter.DrawBoard(_gameRules.Board);
         }
     }
 }

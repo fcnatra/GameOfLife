@@ -12,10 +12,16 @@ namespace GameOfLife
 
             SetupUI(game);
             SetUpBoard(game);
+            SetUpGame(game);
             game.Play();
 
             PressEnterToExit(game);
             game.Stop();
+        }
+
+        private static void SetUpGame(GameOfLifeGameLogic.Game game)
+        {
+            game.DelayBetweenGenerationsInMs = 10;
         }
 
         private static void SetUpBoard(GameOfLifeGameLogic.Game game)

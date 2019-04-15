@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using FakeItEasy;
 using GameOfLifeGameLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -122,6 +123,27 @@ namespace GameOfLifeTests
             bool secondRowSecondColumnIsAlive = gameOfLife.IsAlive(1, 1);
 
             Assert.IsTrue(firstCellIsAlive && secondRowSecondColumnIsAlive);
+        }
+
+        [TestMethod]
+        public void WhenGenerationChangesTheDrawingBoardToolIsNotified()
+        {
+            /*
+             *.......
+             .*......
+             ........
+             ........
+             */
+
+            var game = new Game();
+            game.InitializeGame(new List<string>() { "*", ".*" });
+            var fakeUIdrawingTool = A.Fake<IGameOfLifeUI>();
+            game.BoardPainter = fakeUIdrawingTool;
+
+            game.Play();
+            game.Stop();
+
+            A.CallTo(() => fakeUIdrawingTool.GenerationHasChanged(A<long>.Ignored)).MustHaveHappenedOnceExactly();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace GameOfLifeGameLogic
 {
     public interface IGameOfLifeUI : IDisposable
     {
-        void SetGenerationNumber(long iterationNumber);
+        void GenerationHasChanged(long iterationNumber);
         void DrawBoard(StringBuilder[] board);
     }
 }

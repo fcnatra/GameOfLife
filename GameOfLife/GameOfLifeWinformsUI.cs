@@ -10,12 +10,14 @@ namespace GameOfLife
     {
         private Dictionary<char, Brush> _brushes;
         private Form _formBoard;
+
         private Form FormBoard { get
             {
                 if (_formBoard == null) InitializeFormField();
                 return _formBoard;
             }
         }
+
         public int PointSize { get; set; }
 
         public GameOfLifeWinformsUI()
@@ -58,12 +60,10 @@ namespace GameOfLife
             _formBoard.Close();
         }
 
-        public void SetGenerationNumber(long generationNumber)
+        public void GenerationHasChanged(long generationNumber)
         {
             //FormBoard.Tag = $"Generation {generationNumber}";
         }
-
-        private delegate void DrawBoardSafeCall(StringBuilder[] board);
 
         public void DrawBoard(StringBuilder[] board)
         {
