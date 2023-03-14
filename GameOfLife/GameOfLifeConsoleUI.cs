@@ -22,7 +22,7 @@ namespace GameOfLife
 
         private void DrawGenerationNumber(long generationNumber)
         {
-            Console.SetCursorPosition(1, 1);
+            Console.SetCursorPosition(1, 2);
             Console.Write($"Generation number: {generationNumber}");
         }
 

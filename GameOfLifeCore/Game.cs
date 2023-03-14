@@ -30,7 +30,7 @@ namespace GameOfLifeGameLogic
             CheckGameIsInitialized();
 
             _cancellationToken = new CancellationTokenSource();
-            ThreadPool.QueueUserWorkItem(new WaitCallback(AsyncPlayGame), _cancellationToken.Token);
+            ThreadPool.QueueUserWorkItem(new WaitCallback(this.AsyncPlayGame), _cancellationToken.Token);
         }
 
         private void CheckGameIsInitialized()
