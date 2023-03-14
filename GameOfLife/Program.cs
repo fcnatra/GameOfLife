@@ -32,8 +32,8 @@ namespace GameOfLife
 
         private static void SetupUI(GameOfLifeGameLogic.Game game)
         {
-            //game.BoardPainter = new GameOfLifeConsoleUI();
-            game.BoardPainter = new GameOfLifeWinformsUI { PointSize = 5 };
+            game.BoardPainter = new GameOfLifeConsoleUI();
+            //game.BoardPainter = new GameOfLifeWinformsUI { PointSize = 5 };
         }
 
         private static void PressEnterToExit(GameOfLifeGameLogic.Game game)
